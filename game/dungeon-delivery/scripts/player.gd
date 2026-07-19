@@ -3,6 +3,8 @@ extends CharacterBody2D
 
 @export var move_speed := 300.0
 
+var carrying_package := false
+
 func _physics_process(delta):
 	var direction = Input.get_vector(
 		"ui_left",

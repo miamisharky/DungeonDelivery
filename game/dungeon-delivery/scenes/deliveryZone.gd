@@ -7,6 +7,8 @@ func _on_body_entered(body):
 
 	if body.name == "Player":
 
-		body.carrying_package = true
+		if body.carrying_package:
 
-		queue_free()
+			body.carrying_package = false
+
+			print("Delivery Complete!")
