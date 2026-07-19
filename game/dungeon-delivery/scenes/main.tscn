@@ -2,6 +2,12 @@
 
 [ext_resource type="Script" uid="uid://c51hp65o4vg5u" path="res://scripts/player.gd" id="1_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://cdve2wdlkvowk" path="res://art/player1.png" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://fx45yuqpgymn" path="res://scenes/package/package.tscn" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://dksmsv5wb82w5" path="res://scenes/package/package.gd" id="4_jyhfs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_biyew"]
 
 [node name="Main" type="Node2D" unique_id=2006723250]
 
@@ -12,3 +18,11 @@ script = ExtResource("1_0wfyh")
 texture = ExtResource("1_o5qli")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=215533966]
+shape = SubResource("RectangleShape2D_jyhfs")
+
+[node name="package" parent="." unique_id=873552045 instance=ExtResource("3_sugp2")]
+position = Vector2(500, 300)
+script = ExtResource("4_jyhfs")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="package" unique_id=1205427516]
+shape = SubResource("RectangleShape2D_biyew")
