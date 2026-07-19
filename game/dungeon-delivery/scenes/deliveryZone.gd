@@ -12,6 +12,8 @@ func _on_body_entered(body):
 		if body.carrying_package:
 
 			body.carrying_package = false
+			
+			game_manager.update_package_status(false)
 
 			game_manager.add_score(1)
 

@@ -4,11 +4,16 @@ var score := 0
 
 @onready var score_label = $"../UI/ScoreLabel"
 
+@onready var status_label = $"../UI/StatusLabel"
+
 @onready var main_scene = get_parent()
 
 var package_scene = preload("res://scenes/package/package.tscn")
 
 func _ready():
+
+	update_package_status(false)
+
 	spawn_package()
 
 func add_score(amount):
@@ -19,6 +24,13 @@ func add_score(amount):
 	print("Score: ", score)
 
 	spawn_package()
+
+func update_package_status(is_carrying):
+
+	if is_carrying:
+		status_label.text = "Package: YES"
+	else:
+		status_label.text = "Package: NO"
 
 func spawn_package():
 

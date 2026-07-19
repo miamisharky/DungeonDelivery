@@ -47,3 +47,10 @@ offset_top = 36.0
 offset_right = 126.0
 offset_bottom = 59.0
 text = "Score: 0"
+
+[node name="StatusLabel" type="Label" parent="UI" unique_id=1797705101]
+offset_left = 66.0
+offset_top = 18.0
+offset_right = 164.0
+offset_bottom = 41.0
+text = "Package: NO"
