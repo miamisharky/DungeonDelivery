@@ -17,6 +17,9 @@ size = Vector2(64, 64)
 [node name="GameManager" type="Node" parent="." unique_id=2060075587]
 script = ExtResource("1_o6xl0")
 
+[node name="GameTimer" type="Timer" parent="." unique_id=1353340414]
+autostart = true
+
 [node name="Player" type="CharacterBody2D" parent="." unique_id=834196420]
 position = Vector2(100, 100)
 script = ExtResource("1_0wfyh")
@@ -54,3 +57,10 @@ offset_top = 18.0
 offset_right = 164.0
 offset_bottom = 41.0
 text = "Package: NO"
+
+[node name="TimerLabel" type="Label" parent="UI" unique_id=849763511]
+offset_left = 536.0
+offset_top = 8.0
+offset_right = 576.0
+offset_bottom = 31.0
+text = "Time: 60"
