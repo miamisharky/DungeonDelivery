@@ -2,18 +2,20 @@
 
 [ext_resource type="Script" uid="uid://c51hp65o4vg5u" path="res://scripts/player.gd" id="1_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://cdve2wdlkvowk" path="res://art/player1.png" id="1_o5qli"]
-[ext_resource type="PackedScene" uid="uid://fx45yuqpgymn" path="res://scenes/package/package.tscn" id="3_sugp2"]
-[ext_resource type="Script" uid="uid://dksmsv5wb82w5" path="res://scenes/package/package.gd" id="4_jyhfs"]
+[ext_resource type="Script" uid="uid://cf71tthhd3h4n" path="res://scenes/gameManager.gd" id="1_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://dfku0qgha7vst" path="res://art/DeliveryZone.png" id="5_tbgi4"]
 [ext_resource type="Script" uid="uid://bp706lj35gr65" path="res://scenes/deliveryZone.gd" id="5_tefeu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_biyew"]
+size = Vector2(21.333332, 21.333332)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tbgi4"]
+size = Vector2(64, 64)
 
 [node name="Main" type="Node2D" unique_id=2006723250]
+
+[node name="GameManager" type="Node" parent="." unique_id=2060075587]
+script = ExtResource("1_o6xl0")
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=834196420]
 position = Vector2(100, 100)
@@ -23,14 +25,8 @@ script = ExtResource("1_0wfyh")
 texture = ExtResource("1_o5qli")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=215533966]
+scale = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_jyhfs")
-
-[node name="package" parent="." unique_id=873552045 instance=ExtResource("3_sugp2")]
-position = Vector2(500, 300)
-script = ExtResource("4_jyhfs")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="package" unique_id=1205427516]
-shape = SubResource("RectangleShape2D_biyew")
 
 [node name="DeliveryZone" type="Area2D" parent="." unique_id=2142751769]
 script = ExtResource("5_tefeu")
@@ -42,3 +38,12 @@ texture = ExtResource("5_tbgi4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeliveryZone" unique_id=1484925508]
 position = Vector2(900, 300)
 shape = SubResource("RectangleShape2D_tbgi4")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1280335858]
+
+[node name="ScoreLabel" type="Label" parent="UI" unique_id=688227905]
+offset_left = 65.0
+offset_top = 36.0
+offset_right = 126.0
+offset_bottom = 59.0
+text = "Score: 0"
