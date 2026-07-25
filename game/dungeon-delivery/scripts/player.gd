@@ -7,6 +7,8 @@ extends CharacterBody2D
 @export var drag := 0.99
 
 var carrying_package := false
+var cargo_value := 0
+var cargo_type := ""
 
 func _physics_process(delta):
 

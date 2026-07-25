@@ -13,7 +13,7 @@ func _on_body_entered(body):
 
 			body.carrying_package = false
 			game_manager.update_package_status(false)
-			game_manager.add_score(1)
+			game_manager.add_score(body.cargo_value)
 			game_manager.increase_combo()
 			game_manager.add_time(5)
 			print("Delivery Complete!")
