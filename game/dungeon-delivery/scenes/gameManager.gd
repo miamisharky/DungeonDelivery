@@ -29,20 +29,8 @@ func _ready():
 
 func _on_timer_timeout():
 
-	time_remaining -= 1
+	change_time(-1)
 
-	timer_label.text = "Time: " + str(time_remaining)
-
-	if time_remaining <= 0:
-
-		game_over = true
-
-		game_timer.stop()
-		reset_combo()
-
-		timer_label.text = "GAME OVER"
-
-		print("Game Over")
 #Credits, combo, time, spawn
 func add_score(amount):
 
@@ -63,16 +51,27 @@ func add_score(amount):
 
 	spawn_package()
 
-func add_time(amount):
+func change_time(amount):
 
 	if game_over:
 		return
 
 	time_remaining += amount
 
+	if time_remaining <= 0:
+		time_remaining = 0
+		timer_label.text = "Time: 0"
+		end_game()
+		return
+
 	timer_label.text = "Time: " + str(time_remaining)
-	
-	print("+" + str(amount) + " Seconds!")
+
+func add_time(amount):
+
+	change_time(amount)
+
+	if amount > 0:
+		print("+" + str(amount) + " Seconds!")
 
 func increase_combo():
 
@@ -81,6 +80,21 @@ func increase_combo():
 	combo_label.text = "Combo: x" + str(combo)
 
 	print("Combo x" + str(combo))
+
+func end_game():
+
+	if game_over:
+		return
+
+	game_over = true
+
+	game_timer.stop()
+
+	timer_label.text = "GAME OVER"
+
+	reset_combo()
+
+	print("Game Over")
 
 func reset_combo():
 

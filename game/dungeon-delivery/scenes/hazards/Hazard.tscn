@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://coc8pcfgygif5"]
+
+[ext_resource type="Texture2D" uid="uid://d2of7jgrbv8ik" path="res://art/hazard.png" id="1_ajsrp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uee0s"]
+
+[node name="Hazard" type="Area2D" unique_id=316735460]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=904808296]
+texture = ExtResource("1_ajsrp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1880280735]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_uee0s")
