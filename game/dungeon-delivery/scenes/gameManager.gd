@@ -43,7 +43,7 @@ func _on_timer_timeout():
 		timer_label.text = "GAME OVER"
 
 		print("Game Over")
-#Score, combo, time, spawn
+#Credits, combo, time, spawn
 func add_score(amount):
 
 	if game_over:
@@ -57,9 +57,9 @@ func add_score(amount):
 
 		print("Difficulty Increased!")
 
-	score_label.text = "Score: " + str(score)
+	score_label.text = "Credits: " + str(score)
 
-	print("Score: ", score)
+	print("Credits: ", score)
 
 	spawn_package()
 
@@ -91,9 +91,9 @@ func reset_combo():
 func update_package_status(is_carrying):
 
 	if is_carrying:
-		status_label.text = "Package: YES"
+		status_label.text = "Cargo: FULL"
 	else:
-		status_label.text = "Package: NO"
+		status_label.text = "Cargo: EMPTY"
 
 func spawn_package():
 
