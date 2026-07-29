@@ -8,12 +8,16 @@
 [ext_resource type="Texture2D" uid="uid://dfku0qgha7vst" path="res://art/DeliveryZone.png" id="5_tbgi4"]
 [ext_resource type="Script" uid="uid://bp706lj35gr65" path="res://scenes/deliveryZone.gd" id="5_tefeu"]
 [ext_resource type="Script" uid="uid://cq3pady1pp71q" path="res://scripts/hazard.gd" id="6_tipki"]
+[ext_resource type="Texture2D" uid="uid://dcepq8c8kyhnl" path="res://art/UpgradeStation.png" id="9_85g3d"]
+[ext_resource type="Script" uid="uid://bqth4opeaxno7" path="res://scripts/upgrade_station.gd" id="9_choun"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
 size = Vector2(21.333332, 21.333332)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tbgi4"]
 size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_biyew"]
 
 [node name="Main" type="Node2D" unique_id=2006723250]
 
@@ -83,3 +87,14 @@ offset_top = 33.0
 offset_right = 592.0
 offset_bottom = 56.0
 text = "Combo: x1"
+
+[node name="UpgradeStation" type="Area2D" parent="." unique_id=1836085216]
+position = Vector2(100, 100)
+script = ExtResource("9_choun")
+
+[node name="Sprite2D" type="Sprite2D" parent="UpgradeStation" unique_id=212274484]
+texture = ExtResource("9_85g3d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpgradeStation" unique_id=1814655288]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_biyew")

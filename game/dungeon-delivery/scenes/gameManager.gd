@@ -1,12 +1,12 @@
 extends Node
 #Variables
-var score := 0
+var credits := 0
 var game_over := false
 var time_remaining := 60
 var delivery_time_bonus := 5
 var combo := 1
 #UI
-@onready var score_label = $"../UI/ScoreLabel"
+@onready var credits_label = $"../UI/ScoreLabel"
 @onready var status_label = $"../UI/StatusLabel"
 @onready var timer_label = $"../UI/TimerLabel"
 @onready var game_timer = $"../GameTimer"
@@ -37,17 +37,18 @@ func add_score(amount):
 	if game_over:
 		return
 
-	score += amount * combo
+	credits += amount * combo
+	update_credit_display()
 	
-	if score % 5 == 0:
+	if credits % 5 == 0:
 
 		delivery_time_bonus += 1
 
 		print("Difficulty Increased!")
 
-	score_label.text = "Credits: " + str(score)
+	credits_label.text = "Credits: " + str(credits)
 
-	print("Credits: ", score)
+	print("Credits: ", credits)
 
 	spawn_package()
 
@@ -119,3 +120,18 @@ func spawn_package():
 	)
 
 	main_scene.call_deferred("add_child", package)
+	
+func update_credit_display():
+
+	credits_label.text = "Credits: " + str(credits)
+
+func spend_credits(amount):
+
+	if credits < amount:
+		return false
+
+	credits -= amount
+
+	update_credit_display()
+
+	return true
