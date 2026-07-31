@@ -15,7 +15,10 @@ func _on_body_entered(body):
 
 	if game_manager.spend_credits(ENGINE_COST):
 
-		body.thrust_power += ENGINE_UPGRADE
+		game_manager.engine_level += 1
+		game_manager.apply_upgrades()
+
+		game_manager.save_game()
 
 		print("Engine upgraded!")
 		print("Thrust: " + str(body.thrust_power))

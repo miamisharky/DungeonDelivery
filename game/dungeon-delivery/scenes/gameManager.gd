@@ -1,10 +1,14 @@
 extends Node
 #Variables
 var credits := 0
+var engine_level := 0
+var best_credits := 0
 var game_over := false
 var time_remaining := 60
 var delivery_time_bonus := 5
 var combo := 1
+const BASE_THRUST = 450.0
+const THRUST_PER_LEVEL = 50.0
 #UI
 @onready var credits_label = $"../UI/ScoreLabel"
 @onready var status_label = $"../UI/StatusLabel"
@@ -18,6 +22,8 @@ var package_scene = preload("res://scenes/package/package.tscn")
 
 func _ready():
 
+	load_game()
+
 	update_package_status(false)
 
 	timer_label.text = "Time: " + str(time_remaining)
@@ -27,9 +33,81 @@ func _ready():
 
 	game_timer.timeout.connect(_on_timer_timeout)
 
+func get_save_data():
+
+	return {
+		"credits": credits,
+		"engine_level": engine_level,
+		"best_credits": best_credits
+	}
+
+func save_game():
+
+	var file = FileAccess.open(
+		"user://savegame.json",
+		FileAccess.WRITE
+	)
+
+	file.store_string(
+		JSON.stringify(get_save_data())
+	)
+
+	print("Game Saved")
+	
+func load_game():
+
+	if not FileAccess.file_exists(
+		"user://savegame.json"
+	):
+		return
+
+	var file = FileAccess.open(
+		"user://savegame.json",
+		FileAccess.READ
+	)
+
+	var json_text = file.get_as_text()
+
+	var data = JSON.parse_string(json_text)
+
+	if data == null:
+		return
+
+	credits = data.get("credits", 0)
+	engine_level = data.get("engine_level", 0)
+	apply_upgrades()
+	best_credits = data.get("best_credits", 0)
+
+	update_credit_display()
+
+	print("Game Loaded")
+
 func _on_timer_timeout():
 
 	change_time(-1)
+
+func get_current_thrust():
+
+	return BASE_THRUST + (
+		engine_level * THRUST_PER_LEVEL
+	)
+
+func apply_upgrades():
+
+	var player = $"../Player"
+
+	player.thrust_power = get_current_thrust()
+
+	print(
+		"Engine Level: " +
+		str(engine_level)
+	)
+
+	print(
+		"Thrust Power: " +
+		str(player.thrust_power)
+	)
+
 
 #Credits, combo, time, spawn
 func add_score(amount):
@@ -39,6 +117,9 @@ func add_score(amount):
 
 	credits += amount * combo
 	update_credit_display()
+	
+	if credits > best_credits:
+		best_credits = credits
 	
 	if credits % 5 == 0:
 
