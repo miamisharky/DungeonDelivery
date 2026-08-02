@@ -3,6 +3,7 @@ extends Node
 var credits := 0
 var engine_level := 0
 var equipped_engine := "Starter Engine"
+var equipped_cargo_bay := "Light Cargo Bay"
 var best_credits := 0
 var game_over := false
 var time_remaining := 60
@@ -26,6 +27,17 @@ var engine_database = {
 	}
 }
 
+var cargo_database = {
+
+	"Light Cargo Bay": {
+		"capacity": 1
+	},
+
+	"Industrial Cargo Bay": {
+		"capacity": 3
+	}
+}
+
 #UI
 @onready var credits_label = $"../UI/ScoreLabel"
 @onready var status_label = $"../UI/StatusLabel"
@@ -40,7 +52,7 @@ var package_scene = preload("res://scenes/package/package.tscn")
 func _ready():
 
 	load_game()
-
+	update_loadout_display()
 	update_package_status(false)
 
 	timer_label.text = "Time: " + str(time_remaining)
@@ -55,6 +67,7 @@ func get_save_data():
 	return {
 		"credits": credits,
 		"equipped_engine": equipped_engine,
+		"equipped_cargo_bay": equipped_cargo_bay,
 		"best_credits": best_credits
 	}
 
@@ -95,6 +108,10 @@ func load_game():
 		"equipped_engine",
 		"Starter Engine"
 	)
+	equipped_cargo_bay = data.get(
+		"equipped_cargo_bay",
+		"Light Cargo Bay"
+	)
 
 	apply_upgrades()
 	best_credits = data.get("best_credits", 0)
@@ -112,6 +129,12 @@ func get_current_thrust():
 	return engine_database[
 		equipped_engine
 	]["thrust"]
+
+func get_cargo_capacity():
+
+	return cargo_database[
+		equipped_cargo_bay
+	]["capacity"]
 
 func apply_upgrades():
 
@@ -183,6 +206,13 @@ func increase_combo():
 	combo_label.text = "Combo: x" + str(combo)
 
 	print("Combo x" + str(combo))
+
+func update_loadout_display():
+
+	$"../UI/CargoBayLabel".text = (
+		"Cargo Bay: " +
+		equipped_cargo_bay
+	)
 
 func end_game():
 
