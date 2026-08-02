@@ -2,6 +2,7 @@ extends Node
 #Variables
 var credits := 0
 var engine_level := 0
+var equipped_engine := "Starter Engine"
 var best_credits := 0
 var game_over := false
 var time_remaining := 60
@@ -9,6 +10,22 @@ var delivery_time_bonus := 5
 var combo := 1
 const BASE_THRUST = 450.0
 const THRUST_PER_LEVEL = 50.0
+
+var engine_database = {
+
+	"Starter Engine": {
+		"thrust": 450
+	},
+
+	"Improved Engine": {
+		"thrust": 550
+	},
+
+	"Industrial Engine": {
+		"thrust": 700
+	}
+}
+
 #UI
 @onready var credits_label = $"../UI/ScoreLabel"
 @onready var status_label = $"../UI/StatusLabel"
@@ -37,7 +54,7 @@ func get_save_data():
 
 	return {
 		"credits": credits,
-		"engine_level": engine_level,
+		"equipped_engine": equipped_engine,
 		"best_credits": best_credits
 	}
 
@@ -74,7 +91,11 @@ func load_game():
 		return
 
 	credits = data.get("credits", 0)
-	engine_level = data.get("engine_level", 0)
+	equipped_engine = data.get(
+		"equipped_engine",
+		"Starter Engine"
+	)
+
 	apply_upgrades()
 	best_credits = data.get("best_credits", 0)
 
@@ -88,9 +109,9 @@ func _on_timer_timeout():
 
 func get_current_thrust():
 
-	return BASE_THRUST + (
-		engine_level * THRUST_PER_LEVEL
-	)
+	return engine_database[
+		equipped_engine
+	]["thrust"]
 
 func apply_upgrades():
 

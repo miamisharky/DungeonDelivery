@@ -1,7 +1,8 @@
 extends Area2D
 
 const ENGINE_COST = 25
-const ENGINE_UPGRADE = 50
+
+@onready var game_manager = $"../GameManager"
 
 func _ready():
 	body_entered.connect(_on_body_entered)
@@ -15,7 +16,16 @@ func _on_body_entered(body):
 
 	if game_manager.spend_credits(ENGINE_COST):
 
-		game_manager.engine_level += 1
+		if game_manager.equipped_engine == "Starter Engine":
+
+			game_manager.equipped_engine = "Improved Engine"
+			print("Unlocked Improved Engine")
+
+		elif game_manager.equipped_engine == "Improved Engine":
+
+			game_manager.equipped_engine = "Industrial Engine"
+			print("Unlocked Industrial Engine")
+
 		game_manager.apply_upgrades()
 
 		game_manager.save_game()
